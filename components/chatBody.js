@@ -1,29 +1,78 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList,Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import React, { useState,useRef,useEffect } from 'react';
 
 const windowHeight = Dimensions.get('window').height;
 
 export default function ChatBody() {
+
+
+
+  const [chats, setChats] = useState([
+    {
+      id: 123,
+      botAnswer : "How can we help you?",
+      timestamp : "October 20, 2021 at 12:20:13 PM UTC+5:30",
+      userMessage : "I am fine"
+    },
+    {
+      id: 331,
+      botAnswer : "Sugarcane contains sugar",
+      timestamp : "October 20, 2021 at 12:21:13 PM UTC+5:30",
+      userMessage : "ok"
+    },
+    {
+      id: 124,
+      botAnswer : "Do you have any more questions?",
+      timestamp : "October 20, 2021 at 12:20:13 PM UTC+5:30",
+      userMessage : "No, Thanks!!"
+    },
+    {
+      id: 310,
+      botAnswer : "Sugarcane conatins sugar",
+      timestamp : "October 20, 2021 at 12:21:13 PM UTC+5:30",
+      userMessage : "ok"
+    }
+  ]);
+
+  const divRef = useRef(null);
+
+  useEffect(() => {
+    divRef.current.scrollToEnd({ behavior: 'smooth' });
+  });
+  
+  // FlatListRef = null;
   return (
     <View style={styles.chatBody}>
-      <View style={styles.chatContent}>
-        <View style={styles.imgCircle}>
-            
-        </View>
-        <View style={styles.botMessage}>
-            <Text style={styles.botName}>Kisan Mitra Bot</Text>
-            <Text style={styles.botMessageText}>Hello! I am a Kisan Bot, how may I assist you? Hello!</Text>
-        </View>
-      </View>
-      <View style={styles.userchatContent}>
-        <View style={styles.userMessage}>
-            <Text style={styles.userName}>Mihir Rane</Text>
-            <Text style={styles.userMessageText}>Hello</Text>
-        </View>
-        <View style={styles.imgCircle}>
-            
-        </View>
-      </View>
+      <FlatList 
+        keyExtractor={(item) => item.id}
+        data={chats}
+        ref={divRef}
+        renderItem = {
+          ({item}) => (
+            <>
+              <View style={styles.chatContent}>
+                <View style={styles.imgCircle}>
+                    
+                </View>
+                <View style={styles.botMessage}>
+                    <Text style={styles.botName}>Kisan Mitra Bot</Text>
+                    <Text style={styles.botMessageText}>{item.botAnswer}</Text>
+                </View>
+              </View>
+              <View style={styles.userchatContent}>
+                <View style={styles.userMessage}>
+                    <Text style={styles.userName}>Mihir Rane</Text>
+                    <Text style={styles.userMessageText}>{item.userMessage}</Text>
+                </View>
+                <View style={styles.imgCircle}>
+                    
+                </View>
+              </View>
+            </>
+          )
+        }
+      />
     </View>
   );
 }
@@ -34,7 +83,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#ffffff",
-    minHeight: 77/100 * windowHeight
+    minHeight: 97/100 * windowHeight - 158,
+    maxHeight: 97/100 * windowHeight - 158
   },
   chatContent:{
     flexDirection:"row",

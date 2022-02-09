@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#53BA4A',
     // alignItems: 'center',
     // justifyContent: 'space-between',
+    height: 70
   },
   heading: {
     textAlign: "center",
