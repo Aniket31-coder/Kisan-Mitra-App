@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#ffffff",
-    minHeight: 83/100 * windowHeight
+    minHeight: 77/100 * windowHeight
   },
   chatContent:{
     flexDirection:"row",

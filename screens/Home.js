@@ -5,12 +5,12 @@ import ChatBottom from '../components/chatBottom';
 
 export default function Home() {
   return <View>
-           <Header/>
+           {/* <Header/> */}
            <ChatBody/>
            <ChatBottom/>
          </View>;
 }
 
-const styles=StyleSheet.create({
+// const styles=StyleSheet.create({
 
-})
+// })
