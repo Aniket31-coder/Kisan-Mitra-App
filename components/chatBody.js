@@ -1,53 +1,39 @@
-import { Dimensions, StyleSheet, Text, View, FlatList,Platform } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
+import { collection, query, getDocs, where, updateDoc, doc, orderBy, onSnapshot, addDoc, Timestamp } from "firebase/firestore"; 
+import {firestore as db} from "../firebase.js";
+
 
 const windowHeight = Dimensions.get('window').height;
 
 export default function ChatBody() {
-
-
-
-  const [chats, setChats] = useState([
-    {
-      id: 123,
-      botAnswer : "How can we help you?",
-      timestamp : "October 20, 2021 at 12:20:13 PM UTC+5:30",
-      userMessage : "I am fine"
-    },
-    {
-      id: 331,
-      botAnswer : "Sugarcane contains sugar",
-      timestamp : "October 20, 2021 at 12:21:13 PM UTC+5:30",
-      userMessage : "ok"
-    },
-    {
-      id: 124,
-      botAnswer : "Do you have any more questions?",
-      timestamp : "October 20, 2021 at 12:20:13 PM UTC+5:30",
-      userMessage : "No, Thanks!!"
-    },
-    {
-      id: 310,
-      botAnswer : "Sugarcane conatins sugar",
-      timestamp : "October 20, 2021 at 12:21:13 PM UTC+5:30",
-      userMessage : "ok"
-    }
-  ]);
-
-  const divRef = useRef(null);
+  const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    divRef.current.scrollToEnd({ behavior: 'smooth' });
+    var unsubscribe = null;
+    const q = query(collection(db, "users/"+"91EPyDC71edJYo6ADkMzsGkjinz1"+"/chats"), orderBy("timestamp", "desc"));
+    unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const chats  = [];
+    querySnapshot.forEach((doc) => {
+        chats.push(doc.data());
+    });
+    setChats(chats);
   });
   
-  // FlatListRef = null;
+    return () => {
+      if(unsubscribe){
+        unsubscribe();
+    }
+    }
+  }, [])
+
   return (
     <View style={styles.chatBody}>
       <FlatList 
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => index}
         data={chats}
-        ref={divRef}
+        inverted
         renderItem = {
           ({item}) => (
             <>

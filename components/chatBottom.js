@@ -3,11 +3,16 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import React, { useState } from 'react';
+// import { ref, onValue, set } from 'firebase/database';
+import {firestore as db} from "../firebase";
+import { collection, query, getDocs, where, updateDoc, doc, orderBy, onSnapshot, addDoc, Timestamp } from "firebase/firestore"; 
+
 
 const windowHeight = Dimensions.get('window').height;
 
 export default function ChatBottom() {
    const [text, setText] = useState("");
+   const [botMessage, setBotMessage] = useState("")
 
    const sendMessage = () => {
       fetch(`http://localhost:3001/sendMessage`, {
@@ -18,8 +23,17 @@ export default function ChatBottom() {
          body: JSON.stringify({ message: text }),
      })
      .then(async(response)=>{
-        response.json().then((res) => {
+        response.json().then(async(res) => {
            console.log(res.answer)
+         //   storeMessage(res.answer)
+         //   console.log(db)
+           setBotMessage(res.answer)
+           await addDoc(collection(db, "users/"+"91EPyDC71edJYo6ADkMzsGkjinz1"+"/chats"), {
+            botAnswer: res.answer,
+            userMessage: text,
+            timestamp: Timestamp.now()
+           })
+           setText("");
          })
      })
    }

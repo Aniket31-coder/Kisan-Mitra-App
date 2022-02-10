@@ -57,7 +57,7 @@ export default function App() {
                 />
             }}
             component={
-             drawer.name==='Home' ? Home
+             drawer.name==='Kisan Mitra' ? Home
              : drawer.name==='About' ? About
              : Analytics
            }
