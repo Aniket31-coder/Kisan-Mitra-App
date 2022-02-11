@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet, Text, View, FlatList } from 'react-native';
+import {  StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState,useEffect } from 'react';
 import { collection, query, getDocs, where, updateDoc, doc, orderBy, onSnapshot, addDoc, Timestamp } from "firebase/firestore"; 
 import {firestore as db} from "../firebase.js";
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units'
 
-
-const windowHeight = Dimensions.get('window').height;
+// const windowHeight = Dimensions.get('window').height;
 
 export default function ChatBody() {
   const [chats, setChats] = useState([]);
@@ -39,7 +39,10 @@ export default function ChatBody() {
             <>
               <View style={styles.chatContent}>
                 <View style={styles.imgCircle}>
-                    
+                <Image
+                  style={styles.imgBot}
+                  source={require("../assets/bot.png")}
+                />
                 </View>
                 <View style={styles.botMessage}>
                     <Text style={styles.botName}>Kisan Mitra Bot</Text>
@@ -52,7 +55,10 @@ export default function ChatBody() {
                     <Text style={styles.userMessageText}>{item.userMessage}</Text>
                 </View>
                 <View style={styles.imgCircle}>
-                    
+                  <Image
+                    style={styles.imgUser}
+                    source={require("../assets/user.png")}
+                  />
                 </View>
               </View>
             </>
@@ -68,19 +74,31 @@ const styles = StyleSheet.create({
     padding: 5,
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#ffffff",
-    minHeight: 97/100 * windowHeight - 158,
-    maxHeight: 97/100 * windowHeight - 158
+    backgroundColor: "#F1EDED",
+    minHeight: 76*vh,
+    maxHeight: 76*vh
+    // minHeight: 97/100 * windowHeight - 158,
+    // maxHeight: 97/100 * windowHeight - 158
   },
   chatContent:{
     flexDirection:"row",
     marginTop:20
   },
   imgCircle: {
-    backgroundColor: "#e5e5e5",
+    backgroundColor: "#fff",
     width: 50,
     height: 50,
     borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  imgBot: {
+    width: 47,
+    height:47,
+  },
+  imgUser: {
+    width: 44,
+    height: 45,
   },
   userchatContent: {
     flexDirection:"row",
@@ -95,7 +113,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderTopLeftRadius: 0,
     maxWidth: 300,
-    height: 'fit-content',
     marginLeft:10
   },
   botName: {
@@ -113,7 +130,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderTopRightRadius: 0,
     maxWidth: 300,
-    height: 'fit-content',
     marginRight:10
   },
   userName: {

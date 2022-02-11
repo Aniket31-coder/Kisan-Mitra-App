@@ -1,6 +1,6 @@
 export default [
     {
-        name:'Kisan Mitra',
+        name:'Home',
         iconType:'Material',
         iconName:'face-profile'
     },

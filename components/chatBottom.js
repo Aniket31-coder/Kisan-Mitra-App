@@ -6,9 +6,9 @@ import React, { useState } from 'react';
 // import { ref, onValue, set } from 'firebase/database';
 import {firestore as db} from "../firebase";
 import { collection, query, getDocs, where, updateDoc, doc, orderBy, onSnapshot, addDoc, Timestamp } from "firebase/firestore"; 
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units'
 
-
-const windowHeight = Dimensions.get('window').height;
+// const windowHeight = Dimensions.get('window').height;
 
 export default function ChatBottom() {
    const [text, setText] = useState("");
@@ -62,7 +62,9 @@ const styles=StyleSheet.create({
       width: "100%",
       backgroundColor:"#53BA4A",
       padding:7,
-      minHeight: 3/100 * windowHeight
+      minHeight: 8*vh,
+      maxHeight: 8*vh
+      // minHeight: 3/100 * windowHeight
   },
    textGroup:{
       borderWidth: 1,

@@ -1,28 +1,33 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {vw, vh, vmin, vmax} from 'react-native-viewport-units'
 
 export default function Header() {
   return (
     <View style={styles.container}>
-        {/* <View style={styles.navbar}>
-          <Ionicons name="menu" size={42} color="white" />
-        </View> */}
+        <View style={styles.navbar}>
+          <Image
+            style={styles.imgLogo}
+            source={require("../assets/KisanMitraLogo.png")}
+          />
+        </View>
         <View style={styles.title}>
           <Text style={styles.heading}>KISAN MITRA</Text>
         </View>
-        {/* <View>
-        </View> */}
+        <View>
+        </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flexDirection: "row",
+    flexDirection: "row",
     backgroundColor: '#53BA4A',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    height: 70
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    minHeight: 7*vh,
+    marginTop: 35,
   },
   heading: {
     textAlign: "center",
@@ -30,5 +35,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     color: "#fff"
   },
+  imgLogo: {
+    width: 50,
+    height: 50
+  }
 
 });

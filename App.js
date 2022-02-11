@@ -16,6 +16,7 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
+    
     <NavigationContainer>
       {/* <SafeAreaView style={styles.container}>
         <Home/>
@@ -57,7 +58,7 @@ export default function App() {
                 />
             }}
             component={
-             drawer.name==='Kisan Mitra' ? Home
+             drawer.name==='Home' ? Home
              : drawer.name==='About' ? About
              : Analytics
            }
